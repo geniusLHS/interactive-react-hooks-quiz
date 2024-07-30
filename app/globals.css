@@ -1,33 +1,113 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  body {
+    font-family: "Pretendard";
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+h1 {
+  @apply py-1 text-2xl font-bold;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+h2 {
+  @apply py-1 text-xl font-semibold;
+}
+
+h3 {
+  @apply py-1 text-[1.0625rem];
+}
+
+p {
+  @apply my-5;
+}
+
+ul {
+  @apply ml-5 list-disc;
+}
+
+hr {
+  @apply my-5;
+}
+
+code:not(pre code) {
+  @apply mx-0.5 rounded-md border border-zinc-300 bg-zinc-100 px-1;
+}
+
+/* code block */
+
+/* pretty-code (shiki) recommend */
+
+.prose pre {
+  @apply overflow-auto rounded-lg border border-[#eee] px-0 py-3;
+}
+
+.prose pre > code {
+  display: grid;
+  @apply text-sm;
+}
+
+/* Fenced Code block - hide horizontal scrollbar: webkit */
+.prose pre::-webkit-scrollbar {
+  display: none;
+}
+/* Fenced Code block - hide horizontal scrollbar: mozila */
+.prose pre {
+  scrollbar-width: none;
+}
+
+/* Fenced Code block - line style */
+.prose pre span[data-line] {
+  @apply inline-block px-2 py-0 leading-snug md:px-4;
+}
+
+/* Fenced Code block - line number style */
+.prose code[data-line-numbers] {
+  counter-reset: line;
+}
+
+.prose code[data-line-numbers] > span[data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+
+  display: inline-block;
+  width: 0.5rem;
+  margin-right: 1.25rem;
+  text-align: right;
+  color: gray;
+}
+
+.prose code[data-line-numbers-max-digits="2"] > span[data-line]::before {
+  width: 1rem;
+}
+.prose code[data-line-numbers-max-digits="3"] > span[data-line]::before {
+  width: 1.5rem;
+}
+
+/* Fenced Code block - line hightlight */
+.prose code span[data-highlighted-line] {
+  @apply border-y-0 border-l-2 border-blue-400 border-transparent bg-indigo-400 bg-opacity-10 pl-[calc(0.5rem-2px)] md:pl-[calc(1rem-2px)];
+}
+
+/* Fenced Code block - word highlight */
+.prose span[data-highlighted-chars] {
+  @apply bg-teal-400 bg-opacity-25;
+}
+.prose span[data-highlighted-chars][data-chars-id="y"] {
+  @apply bg-yellow-400 bg-opacity-25;
+}
+.prose span[data-highlighted-chars][data-chars-id="b"] {
+  @apply bg-sky-400 bg-opacity-25;
+}
+
+/* Fenced Code block - with title style*/
+.prose div[data-rehype-pretty-code-title] {
+  @apply rounded-t-lg border border-b-0 border-[#eee] bg-[#eee] px-3 py-1 font-mono text-sm font-semibold text-gray-800;
+}
+.prose div[data-rehype-pretty-code-title] + pre {
+  @apply mt-0 rounded-t-none;
 }
