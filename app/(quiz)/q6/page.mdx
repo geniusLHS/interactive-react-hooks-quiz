@@ -1,0 +1,23 @@
+## 6. useEffect dependency array
+
+```jsx showLineNumbers
+function User({ user }) {
+  useEffect(() => {
+    console.log(`hello ${user.name}`);
+  }, [user]);
+
+  return <div>{user.name}</div>;
+}
+
+function App() {
+  const [count, setCount] = useState(0);
+  const user = { name: "geniusLHS" };
+
+  return (
+    <div>
+      <User user={user} />
+      <button onClick={() => setCount(count + 1)}>click me!</button>
+    </div>
+  );
+}
+```

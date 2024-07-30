@@ -1,0 +1,29 @@
+## 3. initialize useState with function
+
+다음 컴포넌트는 복잡한 계산을 한 결과를 `useState`의 초기값으로 사용한다.
+
+```jsx showLineNumbers
+function getInitialCount() {
+  console.log("heavy calculate");
+  return 0;
+}
+
+function Counter() {
+  const [count, setCount] = useState(getInitialCount());
+
+  return (
+    <div>
+      {count}
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        update count
+      </button>
+    </div>
+  );
+}
+```
+
+버튼을 누를 때 어떤 일이 일어나는가?

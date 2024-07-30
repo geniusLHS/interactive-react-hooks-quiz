@@ -1,0 +1,33 @@
+## 8. the key prop
+
+다음 컴포넌트는 처음에 알파벳 `A`, `B`, `C`, `D`를 순서대로 보여준다.
+
+```jsx showLineNumbers
+function Input({ text }) {
+  const [value, setValue] = useState(text);
+
+  return <div>{value}</div>;
+}
+
+function Counter() {
+  const [list, setList] = useState(["A", "B", "C", "D"]);
+  const handleListInsertClick = () => {
+    setList((prevList) => ["E"].concat(prevList));
+  };
+
+  return (
+    <div>
+      <div>
+        {list.map((item, index) => (
+          <Input key={index} text={item} />
+        ))}
+      </div>
+      <div>
+        <button onClick={handleListInsertClick}>insert E</button>
+      </div>
+    </div>
+  );
+}
+```
+
+버튼을 누르면 어떤 알파벳들이 어떤 순서로 보이는가?

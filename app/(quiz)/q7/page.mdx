@@ -1,0 +1,27 @@
+## 7. cleanup in useEffect
+
+다음 컴포넌트는 처음 마운트되면 `A 0`, `B 0`을 순서대로 출력한다.
+
+```jsx showLineNumbers
+function Example() {
+  const [count, setCount] = useState(0);
+
+  console.log("A", count);
+
+  useEffect(() => {
+    console.log("B", count);
+    return () => {
+      console.log("C", count);
+    };
+  }, [count]);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+```
+
+버튼을 누르면 콘솔에서 어떤 문자열이 어떤 순서로 출력되는가?

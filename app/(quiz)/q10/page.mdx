@@ -1,0 +1,30 @@
+## 10. component inside component
+
+다음 컴포넌트는 그 안에서 선언한 컴포넌트를 반환한다.
+
+```jsx showLineNumbers
+export default function MyComponent() {
+  const [counter, setCounter] = useState(0);
+
+  function MyTextField() {
+    const [text, setText] = useState("");
+
+    return <input value={text} onChange={(e) => setText(e.target.value)} />;
+  }
+
+  return (
+    <>
+      <MyTextField />
+      <button
+        onClick={() => {
+          setCounter(counter + 1);
+        }}
+      >
+        Clicked {counter} times
+      </button>
+    </>
+  );
+}
+```
+
+`input`에 값을 입력하고 버튼을 누르면 `input`의 값은 유지되는가? 초기화되는가?

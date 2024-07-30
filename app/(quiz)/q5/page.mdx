@@ -1,0 +1,32 @@
+## 5. useState in if statement
+
+다음 컴포넌트는 `isBoy`의 값에 따라 `useState`를 선언하는 순서가 바뀐다.
+
+```jsx showLineNumbers
+function App() {
+  const [isBoy, setIsBoy] = useState(true);
+
+  const [name, setName] = useState("john");
+  let boyAge, setBoyAge, girlAge, setGirlAge;
+
+  if (isBoy) {
+    [boyAge, setBoyAge] = useState(10);
+    [girlAge, setGirlAge] = useState(15);
+  } else {
+    [girlAge, setGirlAge] = useState(15);
+    [boyAge, setBoyAge] = useState(10);
+  }
+
+  return (
+    <div>
+      <p>name: {name}</p>
+      <p>boy age: {boyAge}</p>
+      <p>girl age: {girlAge}</p>
+
+      <button onClick={() => setIsBoy(!isBoy)}>change</button>
+    </div>
+  );
+}
+```
+
+버튼을 누를 때 어떤 일이 일어나는가?

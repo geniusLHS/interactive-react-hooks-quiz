@@ -1,0 +1,25 @@
+## 1. double useState
+
+다음 컴포넌트는 버튼을 누르면 `setCount`함수를 두 번 호출한다.
+
+```jsx showLineNumbers
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p> you clicked {count} times </p>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+          setCount(count + 1);
+        }}
+      >
+        increase count
+      </button>
+    </div>
+  );
+}
+```
+
+버튼을 한 번 누를 때마다 `count`변수는 얼마씩 증가하는가?
