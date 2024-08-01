@@ -1,22 +1,29 @@
-## 2. useState with object
+## 2. useState with setTimeout
 
-다음 컴포넌트는 렌더링이 될 때마다 콘솔에 "rerendered"를 출력한다.
+다음 컴포넌트는 버튼을 누르고 3초 뒤에 `count`값을 출력한다.
 
 ```jsx showLineNumbers
 function Counter() {
   const [count, setCount] = useState(0);
-  const [countObj, setCountObj] = useState({ count: 0 });
 
-  console.log("rerendered");
+  function handleAlertClick() {
+    setTimeout(() => {
+      console.log("count = " + count);
+    }, 3000);
+  }
 
   return (
     <div>
-      <button onClick={() => setCount(0)}>update count</button>
-      <button onClick={() => setCountObj({ count: 0 })}>update countObj</button>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}> increase count </button>
+      <button onClick={handleAlertClick}> console.log </button>
     </div>
   );
 }
 ```
 
-"update count" 버튼을 눌렀을 때, 리렌더링이 일어나는가?
-"update countObj" 버튼을 눌렀을 때, 리렌더링이 일어나는가?
+다음의 과정을 실행하면, 콘솔에서 보이는 `count` 값은 얼마인가?
+
+- `count`를 3으로 증가시킨다.
+- "console.log" 버튼을 누른다.
+- 타임아웃이 실행되기 전에 `count`를 5로 증가시킨다.

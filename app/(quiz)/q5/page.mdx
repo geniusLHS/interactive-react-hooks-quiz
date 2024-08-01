@@ -1,32 +1,23 @@
-## 5. useState in if statement
-
-다음 컴포넌트는 `isBoy`의 값에 따라 `useState`를 선언하는 순서가 바뀐다.
+## 6. useEffect dependency array
 
 ```jsx showLineNumbers
+function User({ user }) {
+  useEffect(() => {
+    console.log(`hello ${user.name}`);
+  }, [user]);
+
+  return <div>{user.name}</div>;
+}
+
 function App() {
-  const [isBoy, setIsBoy] = useState(true);
-
-  const [name, setName] = useState("john");
-  let boyAge, setBoyAge, girlAge, setGirlAge;
-
-  if (isBoy) {
-    [boyAge, setBoyAge] = useState(10);
-    [girlAge, setGirlAge] = useState(15);
-  } else {
-    [girlAge, setGirlAge] = useState(15);
-    [boyAge, setBoyAge] = useState(10);
-  }
+  const [count, setCount] = useState(0);
+  const user = { name: "geniusLHS" };
 
   return (
     <div>
-      <p>name: {name}</p>
-      <p>boy age: {boyAge}</p>
-      <p>girl age: {girlAge}</p>
-
-      <button onClick={() => setIsBoy(!isBoy)}>change</button>
+      <User user={user} />
+      <button onClick={() => setCount(count + 1)}>click me!</button>
     </div>
   );
 }
 ```
-
-버튼을 누를 때 어떤 일이 일어나는가?

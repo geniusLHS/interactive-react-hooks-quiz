@@ -17,7 +17,7 @@ export default function QuizLayout({
       <div className="mt-3 flex w-full flex-row justify-center">
         <Link
           href={`a${number}`}
-          className="block rounded-md bg-slate-800 px-2 py-1 text-white transition hover:bg-slate-600"
+          className="block rounded-md bg-zinc-800 px-2 py-1 text-white transition hover:bg-zinc-600"
         >
           정답 보기
         </Link>

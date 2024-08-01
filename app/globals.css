@@ -34,6 +34,10 @@ hr {
   @apply my-5;
 }
 
+blockquote {
+  @apply border-l-4 pl-5 italic;
+}
+
 code:not(pre code) {
   @apply mx-0.5 rounded-md border border-zinc-300 bg-zinc-100 px-1;
 }

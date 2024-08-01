@@ -1,29 +1,32 @@
-## 4. useState with setTimeout
+## 5. useState in if statement
 
-다음 컴포넌트는 버튼을 누르고 3초 뒤에 `count`과 함께 알림창을 띄운다.
+다음 컴포넌트는 `isBoy`의 값에 따라 `useState`를 선언하는 순서가 바뀐다.
 
 ```jsx showLineNumbers
-function Counter() {
-  const [count, setCount] = useState(0);
+function App() {
+  const [isBoy, setIsBoy] = useState(true);
 
-  function handleAlertClick() {
-    setTimeout(() => {
-      alert("You clicked on: " + count);
-    }, 3000);
+  const [name, setName] = useState("john");
+  let boyAge, setBoyAge, girlAge, setGirlAge;
+
+  if (isBoy) {
+    [boyAge, setBoyAge] = useState(10);
+    [girlAge, setGirlAge] = useState(15);
+  } else {
+    [girlAge, setGirlAge] = useState(15);
+    [boyAge, setBoyAge] = useState(10);
   }
 
   return (
     <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
-      <button onClick={handleAlertClick}>Show alert</button>
+      <p>name: {name}</p>
+      <p>boy age: {boyAge}</p>
+      <p>girl age: {girlAge}</p>
+
+      <button onClick={() => setIsBoy(!isBoy)}>change</button>
     </div>
   );
 }
 ```
 
-다음의 과정을 실행하면, 알림창에서 보이는 `count` 값은 얼마인가?
-
-- `count`를 3으로 증가시킨다.
-- "Show alert" 를 누른다.
-- 타임아웃이 실행되기 전에 `count`를 5로 증가시킨다.
+버튼을 누를 때 화면에 어떤 변화가 생기는지 유추하라.

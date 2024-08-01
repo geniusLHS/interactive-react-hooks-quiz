@@ -20,14 +20,14 @@ export default function QuizLayout({
         {number < QuizNumber ? (
           <Link
             href={`q${number + 1}`}
-            className="block rounded-md bg-slate-800 px-2 py-1 text-white transition hover:bg-slate-600"
+            className="block rounded-md bg-zinc-800 px-2 py-1 text-white transition hover:bg-zinc-600"
           >
             다음 문제 보기
           </Link>
         ) : (
           <Link
             href="/"
-            className="block rounded-md bg-slate-800 px-2 py-1 text-white transition hover:bg-slate-600"
+            className="block rounded-md bg-zinc-800 px-2 py-1 text-white transition hover:bg-zinc-600"
           >
             처음으로
           </Link>

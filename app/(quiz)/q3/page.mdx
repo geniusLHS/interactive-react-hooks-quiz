@@ -1,29 +1,22 @@
-## 3. initialize useState with function
+## 3. useState with object
 
-다음 컴포넌트는 복잡한 계산을 한 결과를 `useState`의 초기값으로 사용한다.
+다음 컴포넌트는 렌더링이 될 때마다 콘솔에 "rerendered"를 출력한다.
 
 ```jsx showLineNumbers
-function getInitialCount() {
-  console.log("heavy calculate");
-  return 0;
-}
-
 function Counter() {
-  const [count, setCount] = useState(getInitialCount());
+  const [count, setCount] = useState(0);
+  const [countObj, setCountObj] = useState({ count: 0 });
+
+  console.log("rerendered");
 
   return (
     <div>
-      {count}
-      <button
-        onClick={() => {
-          setCount(count + 1);
-        }}
-      >
-        update count
-      </button>
+      <button onClick={() => setCount(0)}>update count</button>
+      <button onClick={() => setCountObj({ count: 0 })}>update countObj</button>
     </div>
   );
 }
 ```
 
-버튼을 누를 때 어떤 일이 일어나는가?
+"update count" 버튼을 눌렀을 때, 리렌더링이 일어나는가?
+"update countObj" 버튼을 눌렀을 때, 리렌더링이 일어나는가?

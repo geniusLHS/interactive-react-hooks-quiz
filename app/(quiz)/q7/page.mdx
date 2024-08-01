@@ -1,27 +1,33 @@
-## 7. cleanup in useEffect
+## 8. the key prop
 
-다음 컴포넌트는 처음 마운트되면 `A 0`, `B 0`을 순서대로 출력한다.
+다음 컴포넌트는 처음에 알파벳 `A`, `B`, `C`, `D`를 순서대로 보여준다.
 
 ```jsx showLineNumbers
-function Example() {
-  const [count, setCount] = useState(0);
+function Input({ text }) {
+  const [value, setValue] = useState(text);
 
-  console.log("A", count);
+  return <div>{value}</div>;
+}
 
-  useEffect(() => {
-    console.log("B", count);
-    return () => {
-      console.log("C", count);
-    };
-  }, [count]);
+function Counter() {
+  const [list, setList] = useState(["A", "B", "C", "D"]);
+  const handleListInsertClick = () => {
+    setList((prevList) => ["E"].concat(prevList));
+  };
 
   return (
     <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
+      <div>
+        {list.map((item, index) => (
+          <Input key={index} text={item} />
+        ))}
+      </div>
+      <div>
+        <button onClick={handleListInsertClick}>insert E</button>
+      </div>
     </div>
   );
 }
 ```
 
-버튼을 누르면 콘솔에서 어떤 문자열이 어떤 순서로 출력되는가?
+버튼을 누르면 어떤 알파벳들이 어떤 순서로 보이는가?

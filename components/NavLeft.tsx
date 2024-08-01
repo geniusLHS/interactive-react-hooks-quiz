@@ -6,15 +6,13 @@ import { usePathname } from "next/navigation";
 
 const QuizNames = [
   "double useState",
-  "useState with object",
-  "initialize useState with function",
   "useState with setTimeout",
+  "useState with object",
   "useState in if statement",
   "useEffect dependency array",
   "cleanup in useEffect",
   "the key prop",
   "condition of preserving state",
-  "component inside component",
 ];
 
 const NavLeft = () => {

@@ -1,23 +1,27 @@
-## 6. useEffect dependency array
+## 7. cleanup in useEffect
+
+다음 컴포넌트는 처음 마운트되면 `A 0`, `B 0`을 순서대로 출력한다.
 
 ```jsx showLineNumbers
-function User({ user }) {
-  useEffect(() => {
-    console.log(`hello ${user.name}`);
-  }, [user]);
-
-  return <div>{user.name}</div>;
-}
-
-function App() {
+function Example() {
   const [count, setCount] = useState(0);
-  const user = { name: "geniusLHS" };
+
+  console.log("A", count);
+
+  useEffect(() => {
+    console.log("B", count);
+    return () => {
+      console.log("C", count);
+    };
+  }, [count]);
 
   return (
     <div>
-      <User user={user} />
-      <button onClick={() => setCount(count + 1)}>click me!</button>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
     </div>
   );
 }
 ```
+
+버튼을 누르면 콘솔에서 어떤 문자열이 어떤 순서로 출력되는가?
