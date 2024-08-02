@@ -1,13 +1,13 @@
 ## 3. useState with object
 
-다음 컴포넌트는 렌더링이 될 때마다 콘솔에 "rerendered"를 출력한다.
+다음 컴포넌트는 렌더링이 될 때마다 콘솔에 "re-rendered"를 출력한다.
 
 ```jsx showLineNumbers
 function Counter() {
   const [count, setCount] = useState(0);
   const [countObj, setCountObj] = useState({ count: 0 });
 
-  console.log("rerendered");
+  console.log("re-rendered");
 
   return (
     <div>

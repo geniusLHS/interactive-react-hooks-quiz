@@ -18,7 +18,7 @@ const Counter = memo(function Counter({
   }
 
   return (
-    <div className="flex max-w-fit flex-col items-center justify-center gap-3 rounded-md bg-zinc-100 p-3">
+    <div className="bg-zinc-150 flex max-w-fit flex-col items-center justify-center gap-3 rounded-md p-3">
       <p>You clicked {count} times</p>
       <button
         onClick={() => setCount(count + 1)}
@@ -41,23 +41,24 @@ const Console = memo(function Console({
 }: {
   consoleLogs: string[];
 }) {
-  const consoleEndRef = useRef<HTMLDivElement | null>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    consoleEndRef.current?.scrollIntoView();
+    if (listRef.current) {
+      listRef.current.scrollTop = listRef.current.scrollHeight;
+    }
   }, [consoleLogs]);
 
   return (
-    <div className="w-48 rounded-md bg-zinc-100 p-3">
+    <div className="bg-zinc-150 w-48 rounded-md p-3">
       <strong>Console</strong>
-      <div className="h-52 overflow-auto">
+      <div className="h-52 overflow-auto" ref={listRef}>
         <ul className="">
           {consoleLogs.map((item, index) => (
             <li key={index} className="">
               {item}
             </li>
           ))}
-          <div ref={consoleEndRef}></div>
         </ul>
       </div>
     </div>

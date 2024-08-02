@@ -12,11 +12,11 @@ const Counter = memo(function Counter({
   const [count, setCount] = useState(0);
   const [countObj, setCountObj] = useState({ count: 0 });
 
-  // console.log("rerendered");
-  consoleLog("rerendered");
+  // console.log("re-rendered");
+  consoleLog("re-rendered");
 
   return (
-    <div className="flex max-w-fit flex-col items-center justify-center gap-3 rounded-md bg-zinc-100 p-3">
+    <div className="bg-zinc-150 flex max-w-fit flex-col items-center justify-center gap-3 rounded-md p-3">
       <button
         onClick={() => setCount(0)}
         className="block rounded-md bg-slate-800 px-2 py-1 text-white transition hover:bg-zinc-600"
@@ -39,7 +39,7 @@ const Console = memo(function Console({
   consoleLogs: string[];
 }) {
   return (
-    <div className="w-48 rounded-md bg-zinc-100 p-3">
+    <div className="bg-zinc-150 w-48 rounded-md p-3">
       <strong>Console</strong>
       <div className="flex h-52 flex-col-reverse overflow-auto">
         <ul className="">

@@ -1,4 +1,5 @@
 import Counter from "@/components/posts/3/Counter";
+import Clock from "@/components/posts/3/Clock";
 
 ## 정답: "update count" 버튼을 누를 때는 리렌더링이 일어나지 않지만, "update countObj" 버튼을 누르면 리렌더링이 일어난다.
 
@@ -8,14 +9,106 @@ import Counter from "@/components/posts/3/Counter";
 
 ---
 
-리액트에서 함수형 컴포넌트의 라이프 사이클은 Render phase와 Commit phase로 이루어진다.
+리액트에서 컴포넌트가 화면에 그려지기까지의 과정은 크게 세 가지 단계로 이루어진다.
 
-- Render phase:
+1. 트리거 단계 (Trigger Phase)
+2. 렌더 단계 (Render Phase)
+3. 커밋 단계 (Commit Phase)
+
+### **1. 트리거 단계 (Trigger Phase)**
+
+리액트에서 컴포넌트가 렌더링되는 경우는 두 가지이다.
+
+1. 초기 렌더: 컴포넌트가 처음 렌더링 될 때
+2. 리렌더: 컴포넌트의 상태가 업데이트 되었을 때
+
+사용자가 사이트에 처음으로 접속하게 되면 컴포넌트는 첫 번째 렌더링을 하게 된다. 이는 `createRoot` 함수와 `render` 메소드를 통해 이루어진다.
+
+```js showLineNumbers
+import { createRoot } from "react-dom/client";
+
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);
+```
+
+컴포넌트가 한번 렌더링이 되고 나면, 상태 업데이트를 통해 그 다음 렌더링을 발생시킬 수 있다. 컴포넌트의 상태를 업데이트 하면 리액트는 리렌더링을 큐에 삽입한다. 함수형 컴포넌트에서는 `useState()`의 `set` 함수, `useReducer()`의 `dispatch` 등이 이에 해당한다.
+
+### **2. 렌더 단계 (Render Phase)**
+
+렌더가 "트리거"되면, 리액트는 해당 컴포넌트를 호출하여 화면에 어떤 요소들을 그릴지 알아낸다.
+
+> 여기서 "렌더링"은 단지 리액트가 컴포넌트를 호출하는 것을 뜻한다.
+
+1. 초기 렌더에서는 루트 컴포넌트를 호출한다.
+2. 리렌더에서는 상태가 업데이트되어 트리거 단계가 발동된 특정 컴포넌트를 호출한다.
+
+이때 주의할 점은 리액트에서는 기본적으로 부모 컴포넌트가 렌더링되면 모든 자식 컴포넌트가 재귀적으로 렌더링 된다는 것이다. 이 과정을 통해 리액트는 화면에 출력해야 하는 내용물을 정확히 알 수 있다. 이를테면 아래의 코드는 `App()`을 한 번 호출하고 `Image()`를 세 번 호출한다.
+
+```js showLineNumbers
+import { createRoot } from "react-dom/client";
+
+function App() {
+  return (
+    <section>
+      <h1> Images </h1>
+      <Image />
+      <Image />
+      <Image />
+    </section>
+  );
+}
+
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);
+```
+
+### **3. 커밋 단계 (Commit Phase)**
+
+이제 리액트는 렌더 단계에서 얻은 정보를 바탕으로 실제 DOM을 변경한다.
+
+1. 초기 렌더일 경우 리액트는 `appendChild()` DOM API를 통해 컴포넌트가 반환한 모든 DOM 노드들을 그린다.
+2. 리렌더일 경우 리액트는 최소한의 업데이트를 통해 DOM이 컴포넌트가 반환한 결과와 일치하도록 만든다.
+
+리액트는 오직 렌더링 사이에 변화가 있을 때만 DOM 노드를 변경한다. 예를 들어 아래와 같이 매 초마다 다른 시간 값을 전달받는 컴포넌트를 생각하자. `input` 태그에 값을 입력하면 `time`의 값이 바뀌어 리렌더링이 일어나더라도 `input` 태그의 값은 사라지지 않고 여전히 존재하는 것을 볼 수 있다.
+
+```js showLineNumbers
+export default function Clock({ time }) {
+  return (
+    <>
+      <h1>{time}</h1>
+      <input />
+    </>
+  );
+}
+```
+
+<Clock />
+
+이는 리액트가 `<h1>` 태그의 내용만을 수정하기 때문이다. `<input>`은 JSX에서 항상 같은 위치에서 동일하게 존재하므로 리액트는 `<input>`과 그 안의 내용을 건드리지 않는다.
+
+다시 원래 문제로 돌아가서, 우리가 "update count" 또는 "update countObj" 버튼을 누르면 `set` 함수가 호출되므로 리렌더링이 큐에 들어간다. 따라서 어느 버튼을 누르든지 항상 리렌더링이 일어나고 콘솔에 "re-rendered"가 출력되어야 한다. 그러나, "update count" 버튼을 눌렀을 때는 콘솔에 아무 변화가 없다. 그 이유는 이전과 상태가 동일할 경우 리액트는 최적화를 위해 리렌더링을 건너뛰기 때문이다.
+
+여기서 비교는 [`Object.is()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) 함수를 사용한다. 구체적으로 다음 중 하나를 만족하면 두 값이 같다고 판별한다.
+
+- 둘 다 `undefined`
+- 둘 다 `null`
+- 둘 다 `true` 또는 둘 다 `false`
+- 둘 다 같은 순서로 같은 문자에 같은 길이인 문자열
+- 둘 다 같은 객체 (두 값 모두 메모리에서 같은 객체를 참조하는 것을 의미)
+- 둘 다 숫자이며
+  - 둘 다 `+0`
+  - 둘 다 `-0`
+  - 둘 다 `NaN`
+  - 둘 다 `0`이나 `NaN`이 아니고, 같은 값을 지님
+
+`count`의 경우 이전 상태 `0`과 새로운 상태 `0`이 동일하므로 (즉, `Object.is(0,0)`가 `true`) 리렌더링을 건너뛴다. 그러나 `countObj`의 경우 리렌더링을 건너뛸 수 없는데, 이전 상태 `{counter: 0}`과 새로운 상태 `{counter: 0}`가 메모리에서 다른 객체를 참조하기 때문이다.
+
+> 이 부분이 개발자의 직관과 다를 수 있는데, 정말 그런지 의심된다면 지금 당장 개발자도구를 열어 콘솔에 `Object.is([],[])`를 입력해보자. 마찬가지로 `false`가 출력됨을 볼 수 있다.
 
 ---
 
 ### 참고자료
 
-- https://yceffort.kr/2022/03/react-hooks-in-caution#%ED%9B%85%EA%B3%BC-%EB%8F%99%EC%9D%BC-%EB%B9%84%EA%B5%90
+- `KR` https://yceffort.kr/2022/03/react-hooks-in-caution#%ED%9B%85%EA%B3%BC-%EB%8F%99%EC%9D%BC-%EB%B9%84%EA%B5%90
 
 - https://react.dev/reference/react/useState#setstate-caveats

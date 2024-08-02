@@ -35,7 +35,7 @@ function Counter() {
   const [count, setCount] = useState(0);
   const [countObj, setCountObj] = useState({ count: 0 });
 
-  console.log("rerendered");
+  console.log("re-rendered");
 
   return (
     <div>

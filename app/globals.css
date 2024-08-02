@@ -11,15 +11,15 @@
 }
 
 h1 {
-  @apply py-1 text-2xl font-bold;
+  @apply mb-5 text-2xl font-bold;
 }
 
 h2 {
-  @apply py-1 text-xl font-semibold;
+  @apply mb-5 text-xl font-semibold;
 }
 
 h3 {
-  @apply py-1 text-[1.0625rem];
+  @apply my-5 text-[1.0625rem];
 }
 
 p {
@@ -28,6 +28,10 @@ p {
 
 ul {
   @apply ml-5 list-disc;
+}
+
+ol {
+  @apply ml-5 list-decimal;
 }
 
 hr {
@@ -40,6 +44,10 @@ blockquote {
 
 code:not(pre code) {
   @apply mx-0.5 rounded-md border border-zinc-300 bg-zinc-100 px-1;
+}
+
+pre {
+  @apply my-5;
 }
 
 /* code block */
