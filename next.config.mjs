@@ -19,7 +19,10 @@ const withMDX = createMDX({
       [
         rehypePrettyCode,
         {
-          theme: "github-dark-dimmed",
+          theme: {
+            dark: "github-dark-dimmed",
+            light: "github-light",
+          },
         },
       ],
     ],

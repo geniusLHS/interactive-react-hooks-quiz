@@ -114,7 +114,7 @@ pre {
 
 /* Fenced Code block - line hightlight */
 .prose code span[data-highlighted-line] {
-  @apply border-y-0 border-l-2 border-blue-400 border-transparent bg-indigo-400 bg-opacity-10 pl-[calc(0.5rem-2px)] md:pl-[calc(1rem-2px)] dark:border-blue-500 dark:bg-slate-700;
+  @apply border-y-0 border-l-2 border-blue-500 bg-slate-700 bg-opacity-100 pl-[calc(0.5rem-2px)] md:pl-[calc(1rem-2px)];
 }
 
 /* Fenced Code block - word highlight */
@@ -134,4 +134,18 @@ pre {
 }
 .prose div[data-rehype-pretty-code-title] + pre {
   @apply mt-0 rounded-t-none;
+}
+
+/* rehype pretty code: Multiple Themes */
+
+pre[data-theme*=" "],
+pre[data-theme*=" "] span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+
+.dark pre[data-theme*=" "],
+.dark pre[data-theme*=" "] span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
 }

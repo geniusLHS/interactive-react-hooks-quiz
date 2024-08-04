@@ -4,11 +4,28 @@ import Counter from "@/components/posts/4/Counter";
 
 <Counter />
 
-###
+### 훅의 규칙: 반복문, 조건문, 또는 중첩된 함수 안에서 훅을 호출해서는 안된다.
 
 ---
 
-해설
+직접 `useState`를 구현하면서 위의 규칙이 무엇을 의미하는지 알아보자.
+
+```js showLineNumbers
+function React() {
+  let _state;
+
+  function useState(initialValue) {
+    _state = _state || initialValue;
+    function setState(newValue) {
+      _state = newValue;
+      render();
+    }
+    return [_state, setState];
+  }
+
+  return { useState };
+}
+```
 
 ---
 

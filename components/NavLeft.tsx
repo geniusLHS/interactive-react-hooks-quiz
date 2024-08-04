@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { Moon, Sun } from "lucide-react";
+import { Coffee, Github, LoaderCircle, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const QuizNames = [
@@ -57,8 +57,18 @@ const NavLeft = () => {
           {index + 1}. {item}
         </Link>
       ))}
-      <div className="flex flex-row">
-        {!mounted ? null : (
+      <div className="flex flex-row gap-1">
+        {!mounted ? (
+          <button
+            onClick={toggleTheme}
+            className={cn(
+              "rounded-md px-0.5 py-1 transition hover:bg-zinc-200 dark:hover:bg-zinc-700",
+              { hidden: theme === "light" },
+            )}
+          >
+            <LoaderCircle className="h-5 animate-spin" />
+          </button>
+        ) : (
           <>
             <button
               onClick={toggleTheme}
@@ -80,6 +90,24 @@ const NavLeft = () => {
             </button>
           </>
         )}
+        <a
+          className={cn(
+            "rounded-md px-0.5 py-1 transition hover:cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700",
+          )}
+          target="_blank"
+          href="https://github.com/geniusLHS/interactive-react-hooks-quiz"
+        >
+          <Github className="h-5" />
+        </a>
+        <a
+          className={cn(
+            "rounded-md px-0.5 py-1 transition hover:cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700",
+          )}
+          target="_blank"
+          href="https://www.buymeacoffee.com/geniuslhs"
+        >
+          <Coffee className="h-5" />
+        </a>
       </div>
     </div>
   );
