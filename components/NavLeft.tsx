@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const QuizNames = [
   "double useState",
@@ -20,8 +21,13 @@ const QuizNames = [
 const NavLeft = () => {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   const number = pathname.slice(2);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleTheme = () => {
     if (theme === "light") setTheme("dark");
@@ -52,25 +58,28 @@ const NavLeft = () => {
         </Link>
       ))}
       <div className="flex flex-row">
-        {/* <p>The current theme is: {theme}</p> */}
-        <button
-          onClick={toggleTheme}
-          className={cn(
-            "transition/hover rounded-md px-0.5 py-1 transition hover:bg-zinc-200 dark:hover:bg-zinc-700",
-            { hidden: theme === "light" },
-          )}
-        >
-          <Moon className="h-5" />
-        </button>
-        <button
-          onClick={toggleTheme}
-          className={cn(
-            "transition/hover rounded-md px-0.5 py-1 transition hover:bg-zinc-200 dark:hover:bg-zinc-700",
-            { hidden: theme === "dark" },
-          )}
-        >
-          <Sun className="h-5" />
-        </button>
+        {!mounted ? null : (
+          <>
+            <button
+              onClick={toggleTheme}
+              className={cn(
+                "rounded-md px-0.5 py-1 transition hover:bg-zinc-200 dark:hover:bg-zinc-700",
+                { hidden: theme === "light" },
+              )}
+            >
+              <Moon className="h-5" />
+            </button>
+            <button
+              onClick={toggleTheme}
+              className={cn(
+                "rounded-md px-0.5 py-1 transition hover:bg-zinc-200 dark:hover:bg-zinc-700",
+                { hidden: theme !== "light" },
+              )}
+            >
+              <Sun className="h-5" />
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
