@@ -35,7 +35,7 @@ ol {
 }
 
 hr {
-  @apply my-5;
+  @apply my-5 dark:border-zinc-300;
 }
 
 blockquote {
@@ -48,6 +48,10 @@ code:not(pre code) {
 
 pre {
   @apply my-5;
+}
+
+.dark {
+  @apply text-zinc-300;
 }
 
 /* code block */
@@ -100,21 +104,9 @@ pre {
   width: 1.5rem;
 }
 
-/* Fenced Code block - display change on theme switching*/
-/* .light .prose pre[data-theme="github-dark-dimmed"],
-.light .prose code[data-theme="github-dark-dimmed"],
-.dark .prose pre[data-theme="github-light"],
-.dark .prose code[data-theme="github-light"],
-.light
-  .prose
-  div[data-rehype-pretty-code-title][data-theme="github-dark-dimmed"],
-.dark .prose div[data-rehype-pretty-code-title][data-theme="github-light"] {
-  display: none;
-} */
-
 /* Fenced Code block - line hightlight */
 .prose code span[data-highlighted-line] {
-  @apply border-y-0 border-l-2 border-blue-500 bg-slate-700 bg-opacity-100 pl-[calc(0.5rem-2px)] md:pl-[calc(1rem-2px)];
+  @apply border-y-0 border-l-2 border-blue-400 bg-indigo-400 bg-opacity-10 pl-[calc(0.5rem-2px)] md:pl-[calc(1rem-2px)] dark:border-blue-500 dark:bg-slate-700;
 }
 
 /* Fenced Code block - word highlight */
@@ -129,10 +121,10 @@ pre {
 }
 
 /* Fenced Code block - with title style*/
-.prose div[data-rehype-pretty-code-title] {
-  @apply rounded-t-lg border border-b-0 border-[#eee] bg-[#eee] px-3 py-1 font-mono text-sm font-semibold text-gray-800;
+.prose figcaption[data-rehype-pretty-code-title] {
+  @apply rounded-t-lg border border-b-0 border-[#eee] bg-[#eee] px-3 py-1 font-mono text-sm font-semibold text-gray-800 dark:border-zinc-700 dark:bg-zinc-700 dark:text-zinc-300;
 }
-.prose div[data-rehype-pretty-code-title] + pre {
+.prose figcaption[data-rehype-pretty-code-title] + pre {
   @apply mt-0 rounded-t-none;
 }
 
@@ -141,11 +133,15 @@ pre {
 pre[data-theme*=" "],
 pre[data-theme*=" "] span {
   color: var(--shiki-light);
-  background-color: var(--shiki-light-bg);
+  /* background-color: var(--shiki-light-bg); */
 }
 
-.dark pre[data-theme*=" "],
-.dark pre[data-theme*=" "] span {
+.dark pre[data-theme*=" "] {
   color: var(--shiki-dark);
   background-color: var(--shiki-dark-bg);
+}
+
+.dark pre[data-theme*=" "] span {
+  color: var(--shiki-dark);
+  /* background-color: var(--shiki-dark-bg); */
 }

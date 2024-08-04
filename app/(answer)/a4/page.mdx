@@ -1,6 +1,6 @@
 import Counter from "@/components/posts/4/Counter";
 
-## 정답: `boyAge`와 `girlAge`의 값의 위치가 교환된다.
+## 정답: `age`와 `name`의 값의 위치가 교환된다.
 
 <Counter />
 
@@ -10,14 +10,58 @@ import Counter from "@/components/posts/4/Counter";
 
 직접 `useState`를 구현하면서 위의 규칙이 무엇을 의미하는지 알아보자.
 
-```js showLineNumbers
+`useState` 훅 구현의 핵심은 렌더링 사이에서 상태값이 초기화되지 않아야 한다는 것이다. 만약 `useState`를 아래와 같이 구현한다면, 새로운 렌더링이 진행되어 `useState`를 호출할 때마다 값이 초기화될 것이다.
+
+```js showLineNumbers title="wrong.js"
+function useState(iniState) {
+  let _state = initialState;
+
+  function setState(newState) {
+    _state = newState;
+  }
+  return [_state, setState];
+}
+```
+
+이 문제를 어떻게 해결할 수 있을까? 답은 클로저에 있다.
+
+```js showLineNumbers title="closureExample.js"
+function Counter() {
+  let counter = 0;
+
+  function getValue() {
+    return counter;
+  }
+
+  function increase() {
+    counter += 1;
+  }
+
+  return { getValue, increase };
+}
+
+let counter = Counter();
+counter.increase();
+counter.increase();
+counter.getValue(); // 2
+```
+
+클로저는 선언될 당시의 주변 상태를 기억했다가 나중에 호출되었을 때 원래의 환경에 따라 수행되는 함수이다. 클로저 안의 변수는 마치 "죽지 않는 변수"와 같다. 함수 `Counter()`의 실행이 끝나더라도 변수 `counter`는 사라지지 않는다. 따라서 이후에 `increase()`, `getValue()` 함수를 호출했을 때도 예상대로 올바르게 동작할 수 있는 것이다.
+
+클로저를 활용하여 `useState`의 코드를 간단하게 작성해보면 아래와 같다.
+
+```js showLineNumbers title="src/core/React.js"
 function React() {
   let _state;
 
-  function useState(initialValue) {
-    _state = _state || initialValue;
-    function setState(newValue) {
-      _state = newValue;
+  function render() {
+    /*...*/
+  }
+
+  function useState(initialState) {
+    _state = _state || initialState;
+    function setState(newState) {
+      _state = newState;
       render();
     }
     return [_state, setState];
@@ -27,6 +71,126 @@ function React() {
 }
 ```
 
+```js showLineNumbers title="src/App.js"
+const { useState, render } = React();
+
+// prettier-ignore
+function App() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p> you clicked {count} times </p>
+      <button onClick={() => { setCount(count + 1); }}> increase count </button>
+    </div>
+  );
+}
+```
+
+위 코드의 작동은 구체적으로 다음과 같다.
+
+1. 컴포넌트가 처음 마운트 될 때
+
+   - `App`은 `0`을 매개변수로 하여 `useState`를 호출한다.
+   - 맨 처음에 변수 `_state`는 `undefined`이다. 따라서 `_state`은 전달된 값 `0`으로 초기화된다.
+   - `useState`는 상태값 `_state`와 setter 함수 `setState`를 반환한다.
+
+2. `setState`가 호출되었을 때
+
+   - 내부 변수 `_state`의 값을 `1`로 수정한다.
+   - 해당 컴포넌트의 리렌더링을 발생한다.
+
+3. 리렌더링이 발생되었을 때
+   - `App`은 `0`을 매개변수로 하여 다시 `useState`를 호출한다.
+   - 이번에는 `_state`가 `undefined`가 아니므로 전달된 값 `0`은 무시된다.
+   - `useState`는 상태값 `_state`와 setter 함수 `setState`를 반환한다.
+
+이제 상태가 여러개인 경우를 구현해보자. 복잡하게 생각할 필요 없이, 배열과 인덱스를 사용하여 쉽게 구현할 수 있다.
+
+```js showLineNumbers title="src/core/React.js"
+function React() {
+  let _states = [];
+  let cursor = 0;
+
+  function render() {
+    /*...*/
+    cursor = 0;
+  }
+
+  function useState(initialState) {
+    if (_states.length === cursor) _states.push(initialState);
+
+    const state = _states[cursor];
+    function setState(newState) {
+      _states[cursor] = newState;
+      render();
+    }
+
+    cursor += 1;
+    return [state, setState];
+  }
+
+  return { useState };
+}
+```
+
+```js showLineNumbers title="src/App.js"
+const { useState, render } = React();
+
+// prettier-ignore
+function App() {
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState("John");
+
+  return (
+    <div>
+      <p> you clicked {count} times </p>
+      <button onClick={() => { setCount(count + 1); }}> increase count </button>
+      <p> your name is {name} </p>
+      <button onClick={() => { setName("David"); }}> change name </button>
+    </div>
+  );
+}
+```
+
+컴포넌트 내에서 `useState`가 한번 등장할 때마다 `cursor`가 1씩 증가하면서 배열의 새로운 칸에 상태를 정의하는 식이다. 렌더링이 끝난 뒤에는 다시 `cursor`를 `0`으로 초기화 해주어 컴포넌트가 다시 호출되었을 때 배열 `_states`를 첫 번째 칸부터 읽을 수 있도록 한다.
+
+이제 문제의 코드를 다시 읽어보자.
+
+```js showLineNumbers
+function App() {
+  const [ageFirst, setAgeFirst] = useState(true);
+
+  let age, setAge, name, setName;
+
+  if (ageFirst) {
+    [age, setAge] = useState(20);
+    [name, setName] = useState("John");
+  } else {
+    [name, setName] = useState("John");
+    [age, setAge] = useState(20);
+  }
+
+  return (
+    //...
+  );
+}
+```
+
+첫 번째 렌더링에서는 `_states`의 0번째 칸에 `true`가 들어간다. 또한 `ageFirst`가 `true`이므로, `_states`의 1번째 칸에 `20`, 2번째 칸에 `John`이 들어간다. 또한 변수 `age`와 `name`에는 `useState`에서 반환된 값인 `20`, `John`이 각각 들어간다.
+
+반면 `boyFirst`가 `false`로 바뀌고 난 뒤에는 이야기가 달라진다. `ageFirst`가 `_states`의 0번째 칸에서 상태값을 받는 것은 문제가 없지만, 이번에는 `name`에 `_state[1]`의 값인 `20`이 들어가고, `age`에 `_state[2]`의 값인 `John`이 들어간다. 여기서 `useState`의 인수는 아무런 영향도 끼치지 않는다.
+
+> 훅의 규칙: 반복문, 조건문, 또는 중첩된 함수 안에서 훅을 호출해서는 안된다.
+
+이제 위의 규칙이 무엇을 의미하는지 알 수 있다. `React`는 그저 훅이 등장하는 순서대로 리스트에서 값을 찾아 전달해주는 역할을 할 뿐이다. 변수명이 `age`인지 `name`인지는 전혀 중요하지 않다. 훅이 실행되는 순서가 항상 일정하게 유지되는 것이 중요하고, 위의 규칙은 순서가 바뀌는 경우의 예시를 제시한 것 뿐이다.
+
 ---
 
 ### 참고자료
+
+- https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e
+
+- `ko` https://junilhwang.github.io/TIL/Javascript/Design/Vanilla-JS-Make-useSate-hook/
+
+- `ko` https://d5br5.dev/blog/deep_dive/react_useState_understanding

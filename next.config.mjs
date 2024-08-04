@@ -21,7 +21,7 @@ const withMDX = createMDX({
         {
           theme: {
             dark: "github-dark-dimmed",
-            light: "github-light",
+            light: "github-light-default",
           },
         },
       ],

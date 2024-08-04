@@ -19,7 +19,7 @@ export default function RootLayout({
       <head></head>
       <body className="md:overflow-y-scroll">
         <ThemeProvider attribute="class">
-          <div className="min-h-screen bg-zinc-50 px-4 py-12 font-sans dark:bg-zinc-900 dark:text-zinc-300">
+          <div className="min-h-screen bg-zinc-50 px-4 py-12 font-sans dark:bg-zinc-900">
             <div className="mx-auto w-full max-w-5xl">
               <div className="flex grid-cols-[10rem_1fr] flex-col md:grid">
                 <div>
