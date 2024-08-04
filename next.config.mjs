@@ -1,6 +1,6 @@
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
-import remarkPrettyCode from "rehype-pretty-code";
+import rehypePrettyCode from "rehype-pretty-code";
 import createMDX from "@next/mdx";
 import { readFileSync } from "fs";
 
@@ -17,9 +17,9 @@ const withMDX = createMDX({
     remarkPlugins: [remarkGfm, remarkBreaks],
     rehypePlugins: [
       [
-        remarkPrettyCode,
+        rehypePrettyCode,
         {
-          theme: "github-light",
+          theme: "github-dark-dimmed",
         },
       ],
     ],

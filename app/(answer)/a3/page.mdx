@@ -101,7 +101,7 @@ export default function Clock({ time }) {
   - 둘 다 `NaN`
   - 둘 다 `0`이나 `NaN`이 아니고, 같은 값을 지님
 
-`count`의 경우 이전 상태 `0`과 새로운 상태 `0`이 동일하므로 (즉, `Object.is(0,0)`가 `true`) 리렌더링을 건너뛴다. 그러나 `countObj`의 경우 리렌더링을 건너뛸 수 없는데, 이전 상태 `{counter: 0}`과 새로운 상태 `{counter: 0}`가 메모리에서 다른 객체를 참조하기 때문이다.
+`count`의 경우 이전 상태 `0`과 새로운 상태 `0`이 동일하므로 (즉, `Object.is(0,0)`가 `true`) 리렌더링을 건너뛴다. 그러나 `countObj`의 경우 리렌더링을 건너뛸 수 없는데, 이전 상태 `{counter: 0}`와 새로운 상태 `{counter: 0}`가 메모리에서 다른 객체를 참조하기 때문이다.
 
 > 이 부분이 개발자의 직관과 다를 수 있는데, 정말 그런지 의심된다면 지금 당장 개발자도구를 열어 콘솔에 `Object.is([],[])`를 입력해보자. 마찬가지로 `false`가 출력됨을 볼 수 있다.
 
@@ -109,6 +109,8 @@ export default function Clock({ time }) {
 
 ### 참고자료
 
-- `KR` https://yceffort.kr/2022/03/react-hooks-in-caution#%ED%9B%85%EA%B3%BC-%EB%8F%99%EC%9D%BC-%EB%B9%84%EA%B5%90
+- https://react.dev/learn/render-and-commit
 
 - https://react.dev/reference/react/useState#setstate-caveats
+
+- `KR` https://yceffort.kr/2022/03/react-hooks-in-caution#%ED%9B%85%EA%B3%BC-%EB%8F%99%EC%9D%BC-%EB%B9%84%EA%B5%90

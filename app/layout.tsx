@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
 import NavLeft from "@/components/NavLeft";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,21 +15,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html>
+    <html suppressHydrationWarning>
       <head></head>
       <body className="md:overflow-y-scroll">
-        <div className="min-h-screen bg-zinc-50 px-4 py-12 font-sans">
-          <div className="mx-auto w-full max-w-5xl">
-            <div className="flex grid-cols-[10rem_1fr] flex-col md:grid">
-              <div>
-                <div className="fixed max-w-[10rem]">
-                  <NavLeft />
+        <ThemeProvider attribute="class">
+          <div className="min-h-screen bg-zinc-50 px-4 py-12 font-sans dark:bg-zinc-900 dark:text-zinc-300">
+            <div className="mx-auto w-full max-w-5xl">
+              <div className="flex grid-cols-[10rem_1fr] flex-col md:grid">
+                <div>
+                  <div className="fixed max-w-[10rem]">
+                    <NavLeft />
+                  </div>
                 </div>
+                <main className="prose px-5">{children}</main>
               </div>
-              <main className="prose px-5">{children}</main>
             </div>
           </div>
-        </div>
+        </ThemeProvider>
       </body>
     </html>
   );

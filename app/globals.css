@@ -43,7 +43,7 @@ blockquote {
 }
 
 code:not(pre code) {
-  @apply mx-0.5 rounded-md border border-zinc-300 bg-zinc-100 px-1;
+  @apply mx-0.5 rounded-md border border-zinc-300 bg-zinc-100 px-1 dark:border-zinc-600 dark:bg-zinc-800;
 }
 
 pre {
@@ -55,7 +55,7 @@ pre {
 /* pretty-code (shiki) recommend */
 
 .prose pre {
-  @apply overflow-auto rounded-lg border border-[#eee] px-0 py-3;
+  @apply overflow-auto rounded-lg border border-[#eee] px-0 py-3 dark:border-[#333];
 }
 
 .prose pre > code {
@@ -100,9 +100,21 @@ pre {
   width: 1.5rem;
 }
 
+/* Fenced Code block - display change on theme switching*/
+/* .light .prose pre[data-theme="github-dark-dimmed"],
+.light .prose code[data-theme="github-dark-dimmed"],
+.dark .prose pre[data-theme="github-light"],
+.dark .prose code[data-theme="github-light"],
+.light
+  .prose
+  div[data-rehype-pretty-code-title][data-theme="github-dark-dimmed"],
+.dark .prose div[data-rehype-pretty-code-title][data-theme="github-light"] {
+  display: none;
+} */
+
 /* Fenced Code block - line hightlight */
 .prose code span[data-highlighted-line] {
-  @apply border-y-0 border-l-2 border-blue-400 border-transparent bg-indigo-400 bg-opacity-10 pl-[calc(0.5rem-2px)] md:pl-[calc(1rem-2px)];
+  @apply border-y-0 border-l-2 border-blue-400 border-transparent bg-indigo-400 bg-opacity-10 pl-[calc(0.5rem-2px)] md:pl-[calc(1rem-2px)] dark:border-blue-500 dark:bg-slate-700;
 }
 
 /* Fenced Code block - word highlight */

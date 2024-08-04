@@ -1,15 +1,15 @@
 ## 4. useState in if statement
 
-다음 컴포넌트는 `isBoy`의 값에 따라 `useState`를 선언하는 순서가 바뀐다.
+다음 컴포넌트는 `boyFirst`의 값에 따라 `useState`를 선언하는 순서가 바뀐다.
 
 ```jsx showLineNumbers
 function App() {
-  const [isBoy, setIsBoy] = useState(true);
+  const [boyFirst, setBoyFirst] = useState(true);
 
   const [name, setName] = useState("john");
   let boyAge, setBoyAge, girlAge, setGirlAge;
 
-  if (isBoy) {
+  if (boyFirst) {
     [boyAge, setBoyAge] = useState(10);
     [girlAge, setGirlAge] = useState(15);
   } else {
@@ -23,7 +23,7 @@ function App() {
       <p>boy age: {boyAge}</p>
       <p>girl age: {girlAge}</p>
 
-      <button onClick={() => setIsBoy(!isBoy)}>change</button>
+      <button onClick={() => setBoyFirst(!boyFirst)}>change</button>
     </div>
   );
 }
