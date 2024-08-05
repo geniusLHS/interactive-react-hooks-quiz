@@ -3,7 +3,7 @@
 다음 컴포넌트는 처음 마운트되면 `A 0`, `B 0`을 순서대로 출력한다.
 
 ```jsx showLineNumbers
-function Example() {
+function Count() {
   const [count, setCount] = useState(0);
 
   console.log("A", count);
@@ -18,7 +18,7 @@ function Example() {
   return (
     <div>
       <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
+      <button onClick={() => setCount(count + 1)}>increase count</button>
     </div>
   );
 }
