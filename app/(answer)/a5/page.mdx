@@ -1,0 +1,60 @@
+import Counter from "@/components/posts/5/Counter";
+
+## 정답: 버튼을 누를 때마다 콘솔에 `hello John`이 출력된다.
+
+<Counter />
+
+### `useEffect`의 의존성 배열 또한 `Object.is()` 함수를 통해 비교한다.
+
+---
+
+이 코드를 작성한 개발자는 오직 `user`의 이름이 변할 때만 `hello ${user.name}`을 출력하라는 의미로 `useEffect`의 의존성 배열에 `user`를 추가했을 것이다. 그러나 실제로는 `user`가 변하지 않았는데도 렌더링마다 계속 `hello ${user.name}`가 출력되었다.
+
+이는 `useEffect`의 의존성 배열은 `useState`의 경우와 비슷하게 `Object.is()` 함수를 사용해 동일성을 판단하기 때문이다. 아래의 두 코드를 보면 차이를 확연하게 할 수 있다.
+
+```js showLineNumbers title="inside.jsx"
+function App1() {
+  const user = { name: "paco" };
+
+  return <User user={user} />;
+}
+```
+
+```js showLineNumbers title="outside.jsx"
+const user = { name: "paco" };
+
+function App2() {
+  return <User user={user} />;
+}
+```
+
+첫 번째 코드에서는 `user` 객체가 `App1` 컴포넌트의 내부에 선언되어있다. 매 렌더링마다 `user`에 새로운 객체를 할당하고, 따라서 `useEffect` 내부의 코드가 계속 실행될 것이다.
+
+반면 두 번째 코드에서는 `user` 객체가 `App2` 컴포넌트의 외부에 선언되어있다. 따라서 렌더링이 일어나더라도 `user`는 동일한 객체 포인터를 참조하고, `useEffect` 내부의 코드가 실행되지 않는다.
+
+조금더 실전에 가까운 코드를 살펴보자.
+
+```js showLineNumbers
+function App({ options, userId }) {
+  const [user, setUser] = useState(null);
+  const params = { ...options, teamId };
+
+  useEffect(() => {
+    fetch(`/user/${params.userId}`)
+      .then((response) => response.json)
+      .then((user) => {
+        setUser(user);
+      });
+  }, [params]);
+
+  return <User user={user} params={params} />;
+}
+```
+
+위 코드는 매 렌더링마다 `params`에 새로운 객체를 할당하고, `useEffect` 내부의 코드를 실행하여 `/user/${params.userId}`에 요청을 보낼 것이다. 의존성 배열에 단순 숫자나 문자열이 아닌 객체를 넣을 때는 그 객체가 언제 할당되는지를 예의주시 해야 한다.
+
+---
+
+### 참고자료
+
+- `ko` https://yceffort.kr/2022/03/react-hooks-in-caution#훅과-동일-비교

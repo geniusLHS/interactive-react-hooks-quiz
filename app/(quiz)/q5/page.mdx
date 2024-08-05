@@ -1,5 +1,7 @@
 ## 5. useEffect dependency array
 
+다음 컴포넌트는 `user` 객체를 넘기고, `User` 컴포넌트는 `useEffect` 안에서 콘솔에 `user.name`을 출력한다.
+
 ```jsx showLineNumbers
 function User({ user }) {
   useEffect(() => {
@@ -11,7 +13,7 @@ function User({ user }) {
 
 function App() {
   const [count, setCount] = useState(0);
-  const user = { name: "geniusLHS" };
+  const user = { name: "John" };
 
   return (
     <div>
@@ -21,3 +23,5 @@ function App() {
   );
 }
 ```
+
+버튼을 여러번 누를 때 콘솔에 어떤 변화가 생기는지 유추하라.
