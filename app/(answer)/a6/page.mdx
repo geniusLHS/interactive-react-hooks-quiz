@@ -1,4 +1,5 @@
 import Counter from "@/components/posts/6/Counter";
+import Input from "@/components/posts/6/Input";
 
 ## 정답: `A 1`, `C 0`, `B 1`이 순서대로 출력된다.
 
@@ -34,6 +35,33 @@ import Counter from "@/components/posts/6/Counter";
 
 이처럼 리액트는 항상 페인팅 이후 `useEffect`를 다룸으로써 앱을 더 빠르게 만들어준다.
 
+```js showLineNumbers
+function Input() {
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    console.log(text);
+    setText("default");
+  });
+
+  return (
+    <div>
+      {text}
+      <input
+        value={text}
+        onChange={(e) => {
+          setText(e.target.value);
+        }}
+      />
+    </div>
+  );
+}
+```
+
+예를 들어 위와 같이 코드를 짜면 글자를 입력했을 때 아무 짧은 시간 동안만 보이는 것을 확인할 수 있다. 마찬가지로 페인팅 이후에 `useEffect`를 처리하기 때문이다.
+
+<Input />
+
 참고로 개발 환경에서 해당 컴포넌트의 동작은 다음과 같다.
 
 - 맨 처음에 마운트되면 콘솔에 `A 0`, `A 0`, `B 0`, `C 0`, `B 0`을 출력한다.
@@ -53,3 +81,7 @@ import Counter from "@/components/posts/6/Counter";
 - https://overreacted.io/a-complete-guide-to-useeffect/
 
 - https://react.dev/reference/react/useEffect#my-effect-runs-twice-when-the-component-mounts
+
+```
+
+```

@@ -14,8 +14,8 @@ const QuizNames = [
   "useState in if statement",
   "useEffect dependency array",
   "cleanup in useEffect",
-  "the key prop",
   "condition of preserving state",
+  "the key prop",
 ];
 
 const NavLeft = () => {
@@ -37,7 +37,7 @@ const NavLeft = () => {
   };
 
   return (
-    <div className="hidden flex-col gap-4 rounded-lg bg-zinc-100 p-2 leading-tight md:flex dark:bg-zinc-800">
+    <div className="hidden flex-col gap-4 rounded-lg bg-zinc-100 p-2 leading-tight dark:bg-zinc-800 md:flex">
       <Link
         href={`/`}
         className={cn("underline-offset-2 hover:underline", {

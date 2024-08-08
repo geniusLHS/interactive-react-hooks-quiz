@@ -1,33 +1,29 @@
-## 7. the key prop
+## 7. condition of preserving state
 
-다음 컴포넌트는 처음에 알파벳 `A`, `B`, `C`, `D`를 순서대로 보여준다.
+다음 컴포넌트는 `show`의 값에 따라 색상이 다른 `Counter` 컴포넌트를 반환한다.
 
 ```jsx showLineNumbers
-function Input({ text }) {
-  const [value, setValue] = useState(text);
+function Counter({ color }) {
+  const [count, setCount] = useState(0);
 
-  return <div>{value}</div>;
+  return (
+    <div style={{ backgroundColor: color }}>
+      <p>{count}</p>
+      <button onClick={() => setCount(count + 1)}>increase count</button>
+    </div>
+  );
 }
 
-function Counter() {
-  const [list, setList] = useState(["A", "B", "C", "D"]);
-  const handleListInsertClick = () => {
-    setList((prevList) => ["E"].concat(prevList));
-  };
+function App() {
+  const [show, setShow] = useState(true);
 
   return (
     <div>
-      <div>
-        {list.map((item, index) => (
-          <Input key={index} text={item} />
-        ))}
-      </div>
-      <div>
-        <button onClick={handleListInsertClick}>insert E</button>
-      </div>
+      {show ? <Counter color="red" /> : <Counter color="blue" />}
+      <button onClick={() => setShow(!show)}>toggle color</button>
     </div>
   );
 }
 ```
 
-버튼을 누르면 어떤 알파벳들이 어떤 순서로 보이는가?
+"toggle color" 버튼을 누를 때 `Counter` 컴포넌트의 `count` 값은 초기화되는가? 계속 유지되는가?
