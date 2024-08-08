@@ -1,5 +1,6 @@
 import Counter from "@/components/posts/7/Counter";
 import Counter2 from "@/components/posts/7/Counter2";
+import Counter3 from "@/components/posts/7/Counter3";
 
 ## 정답: "toggle color" 버튼을 눌러도 `count` 값은 유지된다.
 
@@ -83,13 +84,13 @@ function App() {
 >
 > `show` 값에 상관 없이 `React.createElement`의 몇 번째 인자냐에 따라 처음부터 위치가 결정되어 있었다.
 
-위치가 동일하고 컴포넌트가 바뀌면 어떻게 될까? 이 경우 리액트는 해당 컴포넌트와 그 하위 트리의 모든 상태를 초기화한다. 이를테면 아래의 컴포넌트는 매 클릭마다 `<input/>`에 입력한 값이 초기화된다. 왜냐하면 매 렌더링마다 다른 `<MyTextField/>` 컴포넌트가 생성되기 때문이다.
+위치가 동일하고 컴포넌트가 바뀌면 어떻게 될까? 이 경우 리액트는 해당 컴포넌트와 그 하위 트리의 모든 상태를 초기화한다. 이를테면 아래의 컴포넌트는 매 클릭마다 `<input/>`에 입력한 값이 초기화된다. 왜냐하면 매 렌더링마다 다른 `<Input/>` 컴포넌트가 생성되기 때문이다.
 
 ```js showLineNumbers
-export default function MyComponent() {
+export default function App() {
   const [counter, setCounter] = useState(0);
 
-  function MyTextField() {
+  function Input() {
     const [text, setText] = useState("");
 
     return <input value={text} onChange={(e) => setText(e.target.value)} />;
@@ -97,7 +98,7 @@ export default function MyComponent() {
 
   return (
     <>
-      <MyTextField />
+      <Input />
       <button
         onClick={() => {
           setCounter(counter + 1);
@@ -109,6 +110,8 @@ export default function MyComponent() {
   );
 }
 ```
+
+<Counter3 />
 
 ---
 
