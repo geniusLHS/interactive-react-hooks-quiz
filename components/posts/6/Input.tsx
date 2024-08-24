@@ -21,7 +21,7 @@ function Input() {
           onChange={(e) => {
             setText(e.target.value);
           }}
-          className="block rounded-md bg-slate-800 px-2 py-1 text-white transition hover:bg-zinc-600"
+          className="block rounded-md px-2 py-1 transition"
         />
       </div>
     </div>
