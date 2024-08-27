@@ -9,12 +9,22 @@ function Counter() {
 
   let age, setAge, name, setName;
 
+  // 빌드 자체가 불가능함
+  // if (ageFirst) {
+  //   [age, setAge] = useState(20);
+  //   [name, setName] = useState("John");
+  // } else {
+  //   [name, setName] = useState("John");
+  //   [age, setAge] = useState(20);
+  // }
+
+  // 동작은 정확히 같은 코드임 (local에서 실행 해봄)
   if (ageFirst) {
-    [age, setAge] = useState(20);
-    [name, setName] = useState("John");
+    age = 20;
+    name = "John";
   } else {
-    [name, setName] = useState("John");
-    [age, setAge] = useState(20);
+    age = "John";
+    name = 20;
   }
 
   return (
