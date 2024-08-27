@@ -42,7 +42,7 @@ const NavTop = () => {
         <div className="flex flex-row gap-0 overflow-x-auto">
           <Link
             href={`/`}
-            className={cn("hover:underlin px-1 underline-offset-2", {
+            className={cn("px-1 underline-offset-2 hover:underline", {
               "text-red-500 dark:text-red-400": pathname === "/",
             })}
           >

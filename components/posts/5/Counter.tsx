@@ -59,11 +59,11 @@ const App = memo(function App({
   const user = { name: "John" };
 
   return (
-    <div className="flex max-w-fit flex-col items-center justify-center gap-3 rounded-md bg-zinc-150 p-3">
+    <div className="dark:bg-zinc-750 flex max-w-fit flex-col items-center justify-center gap-3 rounded-md bg-zinc-150 p-3">
       <User user={user} consoleLog={consoleLog} />
       <button
         onClick={() => setCount(count + 1)}
-        className="block rounded-md bg-slate-800 px-2 py-1 text-white transition focus:ring focus:ring-gray-400 active:bg-zinc-600"
+        className="block rounded-md bg-zinc-800 px-2 py-1 text-white transition focus:ring focus:ring-zinc-400 active:bg-zinc-600 dark:bg-zinc-200 dark:text-black dark:focus:ring-zinc-500 dark:active:bg-zinc-300"
       >
         click me!
       </button>
@@ -85,12 +85,12 @@ const Console = memo(function Console({
   }, [consoleLogs]);
 
   return (
-    <div className="w-48 rounded-md bg-zinc-150 p-3">
+    <div className="dark:bg-zinc-750 w-48 rounded-md bg-zinc-150 p-3">
       <strong>Console</strong>
       <div className="h-52 overflow-auto" ref={listRef}>
         <ul className="">
           {consoleLogs.map((item, index) => (
-            <li key={index} className="">
+            <li key={index} className="animate-fadeIn">
               {item}
             </li>
           ))}

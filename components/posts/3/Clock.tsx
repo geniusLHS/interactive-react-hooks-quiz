@@ -14,7 +14,7 @@ function Clock() {
 
   return (
     <div className="my-3 flex w-full items-center justify-center">
-      <div className="bg-zinc-150 flex max-w-fit flex-col items-center justify-center rounded-md p-3">
+      <div className="dark:bg-zinc-750 flex max-w-fit flex-col items-center justify-center rounded-md bg-zinc-150 p-3">
         <p> {time.toLocaleString()} </p>
         <input className="block rounded-md px-2 py-1 transition"></input>
       </div>

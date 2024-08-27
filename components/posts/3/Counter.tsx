@@ -16,16 +16,16 @@ const Counter = memo(function Counter({
   consoleLog("re-rendered");
 
   return (
-    <div className="bg-zinc-150 flex max-w-fit flex-col items-center justify-center gap-3 rounded-md p-3">
+    <div className="dark:bg-zinc-750 flex max-w-fit flex-col items-center justify-center gap-3 rounded-md bg-zinc-150 p-3">
       <button
         onClick={() => setCount(0)}
-        className="block rounded-md bg-slate-800 px-2 py-1 text-white transition hover:bg-zinc-600"
+        className="block rounded-md bg-zinc-800 px-2 py-1 text-white transition focus:ring focus:ring-zinc-400 active:bg-zinc-600 dark:bg-zinc-200 dark:text-black dark:focus:ring-zinc-500 dark:active:bg-zinc-300"
       >
         update count
       </button>
       <button
         onClick={() => setCountObj({ count: 0 })}
-        className="block rounded-md bg-slate-800 px-2 py-1 text-white transition hover:bg-zinc-600"
+        className="block rounded-md bg-zinc-800 px-2 py-1 text-white transition focus:ring focus:ring-zinc-400 active:bg-zinc-600 dark:bg-zinc-200 dark:text-black dark:focus:ring-zinc-500 dark:active:bg-zinc-300"
       >
         update countObj
       </button>
@@ -38,13 +38,21 @@ const Console = memo(function Console({
 }: {
   consoleLogs: string[];
 }) {
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollTop = listRef.current.scrollHeight;
+    }
+  }, [consoleLogs]);
+
   return (
-    <div className="bg-zinc-150 w-48 rounded-md p-3">
+    <div className="dark:bg-zinc-750 w-48 rounded-md bg-zinc-150 p-3">
       <strong>Console</strong>
-      <div className="flex h-52 flex-col-reverse overflow-auto">
+      <div className="h-52 overflow-auto" ref={listRef}>
         <ul className="">
           {consoleLogs.map((item, index) => (
-            <li key={index} className="text-sm">
+            <li key={index} className="animate-fadeIn">
               {item}
             </li>
           ))}

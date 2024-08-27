@@ -20,6 +20,7 @@ const config: Config = {
       },
       colors: {
         "zinc-150": "rgb(240 240 241)",
+        "zinc-750": "rgb(51 51 56)",
       },
       keyframes: {
         fadeIn: {

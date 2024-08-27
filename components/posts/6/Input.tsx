@@ -14,7 +14,7 @@ function Input() {
 
   return (
     <div className="my-3 flex w-full items-center justify-center">
-      <div className="flex max-w-fit flex-col items-center justify-center rounded-md bg-zinc-100 p-3">
+      <div className="dark:bg-zinc-750 flex max-w-fit flex-col items-center justify-center rounded-md bg-zinc-150 p-3">
         <p>{text}</p>
         <input
           value={text}

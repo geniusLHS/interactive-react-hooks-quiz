@@ -51,7 +51,7 @@ pre {
 }
 
 .dark {
-  @apply text-zinc-300;
+  @apply text-zinc-200;
 }
 
 /* code block */
