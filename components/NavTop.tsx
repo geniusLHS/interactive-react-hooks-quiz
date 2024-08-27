@@ -18,7 +18,7 @@ const QuizNames = [
   "the key prop",
 ];
 
-const NavLeft = () => {
+const NavTop = () => {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -37,35 +37,37 @@ const NavLeft = () => {
   };
 
   return (
-    <div className="fixed hidden max-w-[10rem] lg:block">
-      <div className="flex flex-col gap-4 rounded-lg bg-zinc-100 p-2 leading-tight dark:bg-zinc-800">
-        <Link
-          href={`/`}
-          className={cn("underline-offset-2 hover:underline", {
-            "text-red-500 dark:text-red-400": pathname === "/",
-          })}
-        >
-          index
-        </Link>
-        {QuizNames.map((item, index) => (
+    <div className="fixed block lg:hidden">
+      <div className="z-100 fixed inset-x-0 top-0 flex flex-row items-center justify-between rounded-lg bg-zinc-100 px-4 py-2 dark:bg-zinc-800">
+        <div className="flex flex-row gap-0 overflow-x-auto">
           <Link
-            key={index}
-            href={`/q${index + 1}`}
-            className={cn("underline-offset-2 hover:underline", {
-              "text-red-500 dark:text-red-400": number === `${index + 1}`,
+            href={`/`}
+            className={cn("hover:underlin px-1 underline-offset-2", {
+              "text-red-500 dark:text-red-400": pathname === "/",
             })}
           >
-            {index + 1}. {item}
+            index
           </Link>
-        ))}
-        <Link
-          href={`/discussions`}
-          className={cn("underline-offset-2 hover:underline", {
-            "text-red-500 dark:text-red-400": pathname === "/discussions",
-          })}
-        >
-          discussions
-        </Link>
+          {QuizNames.map((item, index) => (
+            <Link
+              key={index}
+              href={`/q${index + 1}`}
+              className={cn("px-1.5 underline-offset-2 hover:underline", {
+                "text-red-500 dark:text-red-400": number === `${index + 1}`,
+              })}
+            >
+              {index + 1}
+            </Link>
+          ))}
+          <Link
+            href={`/discussions`}
+            className={cn("px-1 underline-offset-2 hover:underline", {
+              "text-red-500 dark:text-red-400": pathname === "/discussions",
+            })}
+          >
+            D
+          </Link>
+        </div>
         <div className="flex flex-row gap-1">
           {!mounted ? (
             <button
@@ -127,4 +129,4 @@ const NavLeft = () => {
   );
 };
 
-export default NavLeft;
+export default NavTop;

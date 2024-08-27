@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const QuizNumber = 10;
+const QuizNumber = 8;
 
 export default function QuizLayout({
   children,
@@ -29,7 +29,7 @@ export default function QuizLayout({
             href="/"
             className="block rounded-md bg-zinc-800 px-2 py-1 text-white transition hover:bg-zinc-600"
           >
-            처음으로
+            토론하기
           </Link>
         )}
       </div>
