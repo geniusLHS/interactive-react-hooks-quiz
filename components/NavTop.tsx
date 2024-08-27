@@ -38,7 +38,7 @@ const NavTop = () => {
 
   return (
     <div className="fixed block lg:hidden">
-      <div className="z-100 fixed inset-x-0 top-0 flex flex-row items-center justify-between rounded-lg bg-zinc-100 px-4 py-2 dark:bg-zinc-800">
+      <div className="z-100 fixed inset-x-0 top-0 flex flex-row items-center justify-between bg-zinc-100 px-4 py-2 dark:bg-zinc-800">
         <div className="flex flex-row gap-0 overflow-x-auto">
           <Link
             href={`/`}
