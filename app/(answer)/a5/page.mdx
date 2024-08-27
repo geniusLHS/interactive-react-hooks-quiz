@@ -14,14 +14,14 @@ import Counter from "@/components/posts/5/Counter";
 
 ```js showLineNumbers title="inside.jsx"
 function App1() {
-  const user = { name: "paco" };
+  const user = { name: "John" };
 
   return <User user={user} />;
 }
 ```
 
 ```js showLineNumbers title="outside.jsx"
-const user = { name: "paco" };
+const user = { name: "John" };
 
 function App2() {
   return <User user={user} />;
@@ -37,7 +37,7 @@ function App2() {
 ```js showLineNumbers
 function App({ options, userId }) {
   const [user, setUser] = useState(null);
-  const params = { ...options, teamId };
+  const params = { ...options, userId };
 
   useEffect(() => {
     fetch(`/user/${params.userId}`)
@@ -51,10 +51,10 @@ function App({ options, userId }) {
 }
 ```
 
-위 코드는 매 렌더링마다 `params`에 새로운 객체를 할당하고, `useEffect` 내부의 코드를 실행하여 `/user/${params.userId}`에 요청을 보낼 것이다. 의존성 배열에 단순 숫자나 문자열이 아닌 객체를 넣을 때는 그 객체가 언제 할당되는지를 예의주시 해야 한다.
+위 코드는 매 렌더링마다 `params`에 새로운 객체를 할당하고, 따라서 `useEffect` 내부의 코드가 실행되어 `/user/${params.userId}`에 요청을 보낼 것이다. 의존성 배열에 단순 숫자나 문자열이 아닌 객체를 넣을 때는 그 객체가 언제 할당되는지를 예의주시 해야 한다.
 
 ---
 
 ### 참고자료
 
-- `ko` https://yceffort.kr/2022/03/react-hooks-in-caution#훅과-동일-비교
+- `🇰🇷` https://yceffort.kr/2022/03/react-hooks-in-caution#훅과-동일-비교

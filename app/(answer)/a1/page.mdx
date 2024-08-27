@@ -8,7 +8,7 @@ import Counter from "@/components/posts/1/Counter";
 
 ---
 
-```jsx showLineNumbers 4
+```jsx showLineNumbers "// prettier-ignore"#hidden
 // prettier-ignore
 function Counter() {
   const [count, setCount] = useState(0);
@@ -24,9 +24,9 @@ function Counter() {
 
 리액트를 처음 배우게 되면 아마도 가장 신비하게 느껴지는 것이 바로 `useState`훅일 것이다. 어떻게 `setCount`함수 만으로 `count`의 값이 변경되고, 자동으로 컴포넌트에 반영되어 화면에 보이는 것일까? `count`변수는 사실 굉장히 복잡한 함수 또는 객체로 구현되어 있어서 `setCount` 함수를 호출할 때마다 자동으로 값이 바뀌는 것일까?
 
-그런 생각과 달리, `count`변수는 그저 **숫자**이다. `Counter` 컴포넌트가 처음으로 렌더링될 때 `count` 변수에는 `useState` 함수에서 가져온 값 `0`이 담긴다. 즉, 처음으로 렌더링된 `Counter` 컴포넌트는 정확히 아래와 같다.
+그렇지 않다. `count`변수는 그저 **숫자**이다. `Counter` 컴포넌트가 처음으로 렌더링될 때 `count` 변수에는 `useState` 함수에서 가져온 값 `0`이 담긴다. 즉, 처음으로 렌더링된 `Counter` 컴포넌트는 정확히 아래와 같다.
 
-```jsx showLineNumbers {3}
+```jsx showLineNumbers {3} "// prettier-ignore"#hidden
 // prettier-ignore
 function Counter() {
   const count = 0;
@@ -39,7 +39,7 @@ function Counter() {
 
 여기서 버튼을 한 번 누르면 함수가 다시 호출되고, 숫자 `count`의 값이 바뀐다.
 
-```jsx showLineNumbers {3}
+```jsx showLineNumbers {3} "// prettier-ignore"#hidden
 // prettier-ignore
 function Counter() {
   const count = 1;
@@ -52,7 +52,7 @@ function Counter() {
 
 버튼을 한 번 더 눌러도 마찬가지이다.
 
-```jsx showLineNumbers {3}
+```jsx showLineNumbers {3} "// prettier-ignore"#hidden
 // prettier-ignore
 function Counter() {
   const count = 2;
@@ -63,9 +63,9 @@ function Counter() {
 }
 ```
 
-`count`변수는 한 렌더링 안에서 변하지 않는다.
+`count`변수는 각 렌더링 안에서 변하지 않는 상수이다.
 
-이제 원래의 문제를 다시 보자. `count`의 값이 20이라고 가정하면 해당 렌더링에서의 컴포넌트는 아래와 같다.
+이제 원래의 문제를 다시 보자. `count`의 값이 예를 들어 20이라고 가정하면 해당 렌더링에서의 컴포넌트는 아래와 같다.
 
 ```jsx showLineNumbers
 function Counter() {
@@ -89,7 +89,7 @@ function Counter() {
 
 결국 버튼을 눌러도 `setCount(21)`만 두 번 실행될 뿐이므로 버튼을 누를 때 마다 `count`의 값은 1씩 증가하는 것이다.
 
-만약 우리가 원하는 방식으로 작동하게 하고 싶다면, 즉 `count`가 2씩 증가하도록 하려면, 다음과 같이 _nextState_ 대신 *update function*을 인수로 넘겨주면 된다.
+만약 `count`가 2씩 증가하도록 하고 싶다면, 다음과 같이 _nextState_ 대신 *update function*을 인수로 넘겨주면 된다.
 
 ```jsx showLineNumbers
 function Counter() {

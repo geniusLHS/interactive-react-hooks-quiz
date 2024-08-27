@@ -27,7 +27,7 @@ export default function RootLayout({
                 <div>
                   <NavLeft />
                 </div>
-                <main className="prose mt-12 lg:px-5">{children}</main>
+                <main className="prose mt-12 lg:mt-0 lg:px-5">{children}</main>
               </div>
             </div>
           </div>

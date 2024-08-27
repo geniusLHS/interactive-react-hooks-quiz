@@ -110,14 +110,20 @@ pre {
 }
 
 /* Fenced Code block - word highlight */
-.prose span[data-highlighted-chars] {
+.prose mark[data-highlighted-chars] {
   @apply bg-teal-400 bg-opacity-25;
 }
-.prose span[data-highlighted-chars][data-chars-id="y"] {
+.prose mark[data-highlighted-chars][data-chars-id="y"] {
   @apply bg-yellow-400 bg-opacity-25;
 }
-.prose span[data-highlighted-chars][data-chars-id="b"] {
+.prose mark[data-highlighted-chars][data-chars-id="b"] {
   @apply bg-sky-400 bg-opacity-25;
+}
+.prose mark[data-highlighted-chars][data-chars-id="hidden"] {
+  @apply bg-transparent;
+}
+.prose mark[data-highlighted-chars][data-chars-id="hidden"] > span {
+  @apply text-transparent;
 }
 
 /* Fenced Code block - with title style*/

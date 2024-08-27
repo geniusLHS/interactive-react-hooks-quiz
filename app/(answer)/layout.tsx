@@ -26,7 +26,7 @@ export default function QuizLayout({
           </Link>
         ) : (
           <Link
-            href="/"
+            href="/discussions"
             className="block rounded-md bg-zinc-800 px-2 py-1 text-white transition hover:bg-zinc-600"
           >
             토론하기

@@ -17,7 +17,7 @@ import Clock from "@/components/posts/3/Clock";
 
 ### **1. 트리거 단계 (Trigger Phase)**
 
-리액트에서 컴포넌트가 렌더링되는 경우는 두 가지이다.
+리액트에서 컴포넌트가 렌더링되기 위해서는 우선 트리거가 발생해야 한다. 이는 크게 두 가지 경우가 있다.
 
 1. 초기 렌더: 컴포넌트가 처음 렌더링 될 때
 2. 리렌더: 컴포넌트의 상태가 업데이트 되었을 때
@@ -86,7 +86,7 @@ export default function Clock({ time }) {
 
 이는 리액트가 `<h1>` 태그의 내용만을 수정하기 때문이다. `<input>`은 JSX에서 항상 같은 위치에서 동일하게 존재하므로 리액트는 `<input>`과 그 안의 내용을 건드리지 않는다.
 
-다시 원래 문제로 돌아가서, 우리가 "update count" 또는 "update countObj" 버튼을 누르면 `set` 함수가 호출되므로 리렌더링이 큐에 들어간다. 따라서 어느 버튼을 누르든지 항상 리렌더링이 일어나고 콘솔에 "re-rendered"가 출력되어야 한다. 그러나, "update count" 버튼을 눌렀을 때는 콘솔에 아무 변화가 없다. 그 이유는 이전과 상태가 동일할 경우 리액트는 최적화를 위해 리렌더링을 건너뛰기 때문이다.
+다시 원래 문제로 돌아가자. 위에서 배운 대로라면, 우리가 "update count" 또는 "update countObj" 버튼을 눌렀을 때 `set` 함수가 호출되므로 리렌더링이 큐에 들어간다. 따라서 어느 버튼을 누르든지 항상 리렌더링이 일어나고 콘솔에 "re-rendered"가 출력되어야 한다. 그러나, "update count" 버튼을 눌렀을 때는 콘솔에 아무 변화가 없다. 그 이유는 이전과 상태가 동일할 경우 리액트는 최적화를 위해 리렌더링을 건너뛰기 때문이다.
 
 여기서 비교는 [`Object.is()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) 함수를 사용한다. 구체적으로 다음 중 하나를 만족하면 두 값이 같다고 판별한다.
 
@@ -113,4 +113,4 @@ export default function Clock({ time }) {
 
 - https://react.dev/reference/react/useState#setstate-caveats
 
-- `ko` https://yceffort.kr/2022/03/react-hooks-in-caution#훅과-동일-비교
+- `🇰🇷` https://yceffort.kr/2022/03/react-hooks-in-caution#훅과-동일-비교

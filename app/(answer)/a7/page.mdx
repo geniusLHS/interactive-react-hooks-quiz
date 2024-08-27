@@ -56,7 +56,7 @@ function App() {
 
 > 여기서 `show` 값이 `false`이면 `<Counter color="red" />`는 화면에 보이지 않는데, 어떻게 첫 번째 자리를 차지한다는 것일까? 이는 Babel을 통해 변환된 코드를 보면 이해가 쉽다.
 >
-> ```js showLineNumbers {6-7}
+> ```js showLineNumbers
 > function App() {
 >   const [show, setShow] = useState(true);
 >
@@ -82,7 +82,7 @@ function App() {
 > }
 > ```
 >
-> `show` 값에 상관 없이 `React.createElement`의 몇 번째 인자냐에 따라 처음부터 위치가 결정되어 있었다.
+> `show` 값에 상관 없이 `React.createElement` 함수의 몇 번째 인자냐에 따라 처음부터 위치가 결정되어 있었다.
 
 위치가 동일하고 컴포넌트가 바뀌면 어떻게 될까? 이 경우 리액트는 해당 컴포넌트와 그 하위 트리의 모든 상태를 초기화한다. 이를테면 아래의 컴포넌트는 매 클릭마다 `<input/>`에 입력한 값이 초기화된다. 왜냐하면 매 렌더링마다 다른 `<Input/>` 컴포넌트가 생성되기 때문이다.
 
