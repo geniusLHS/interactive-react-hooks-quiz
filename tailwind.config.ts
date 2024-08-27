@@ -26,9 +26,14 @@ const config: Config = {
           "0%": { opacity: "0", transform: "translateX(-10px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        theme: {
+          "0%": { opacity: "0", transform: "scale(0.7) rotate(-90deg)" },
+          "100%": { opacity: "1", transform: "scale(1) rotate(0deg)" },
+        },
       },
       animation: {
         fadeIn: "fadeIn 0.5s ease-in-out",
+        theme: "theme 0.4s ease-out",
       },
     },
   },
