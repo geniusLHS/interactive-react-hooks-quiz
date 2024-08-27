@@ -1,4 +1,5 @@
 import Counter from "@/components/posts/8/Counter";
+import Counter2 from "@/components/posts/8/Counter2";
 
 ## 정답: 알파벳 `A`, `B`, `C`, `D`, `D`가 보인다.
 
@@ -8,9 +9,9 @@ import Counter from "@/components/posts/8/Counter";
 
 ---
 
-커밋 단계에서 리액트는 이전 상태와 다음 상태를 관찰한 뒤 변화가 있을 때만 DOM 노드를 변경한다고 했다. 이를테면 다음과 같다.
+커밋 단계에서 리액트는 이전 상태와 다음 상태를 관찰한 뒤 변화가 있을 때만 DOM 노드를 변경한다고 했다.
 
-```html showLineNumbers
+```html showLineNumbers {11}
 //before
 <ul>
   <li>1</li>
@@ -33,7 +34,7 @@ import Counter from "@/components/posts/8/Counter";
 
 이렇게 최소한의 DOM 변경을 통해 브라우저의 연산을 줄일 수 있다. 그런데, 만약 마지막이 아닌 첫 번째 자리에 새로운 원소가 생기면 어떻게 될까?
 
-```html showLineNumbers
+```html showLineNumbers {9}
 //before
 <ul>
   <li>1</li>
@@ -52,27 +53,69 @@ import Counter from "@/components/posts/8/Counter";
 2.  `<ul>` 태그의 두 번째 자식은 내용이 바뀌었다 (`2` → `1`). DOM에 업데이트가 일어난다.
 3.  그런데 `<ul>` 태그에 원래 없던 세 번째 자식이 추가 되었다. 리액트는 DOM에 해당 요소를 추가한다.
 
-결국 리액트는 모든 컴포넌트를 DOM에서 업데이트하게 되며, 이는 엄연한 낭비이다. 리액트에게 어떤 요소가 동일한 것인지를 알려줄 수는 없을까? 이때 사용할 수 있는 것이 `key` 속성이다.
+결국 리액트는 모든 컴포넌트를 DOM에서 업데이트하게 되며, 낭비가 발생한다. 리액트에게 어떤 요소가 동일한 것인지를 알려줄 수는 없을까? 이때 사용할 수 있는 것이 `key` 속성이다.
 
-```html showLineNumbers
+```html showLineNumbers {9}
 //before
-<li key="1">1</li>
-<li key="2">2</li>
+<ul>
+  <li key="1">1</li>
+  <li key="2">2</li>
+</ul>
 
 //after
-<li key="3">3</li>
-<li key="1">1</li>
-<li key="2">2</li>
+<ul>
+  <li key="3">3</li>
+  <li key="1">1</li>
+  <li key="2">2</li>
+</ul>
 ```
 
 위와 같이 코드를 작성하게 되면, 리액트는 자동으로
 
-그러면 1과 2는 리렌더링되지 않고 0만 추가되는 것을 알 수 있따.
+- `key`가 `1`, `2`로 동일한 `<li>`는 업데이트하지 않고,
+- 새로 생긴 `<li>`만 DOM에 해당 요소를 추가한다.
 
-그런데, 왜 index를 key로 사용하면 안되는 걸까? 왜냐하면 리액트는 key가 변하지않으면 상태가 변하지 않는다고 판단하기 때문이다. 이번 문제의 코드가 딱 그렇다. 앞에 원소가 추가되었지만 상태는 여전하다. 만약 이를 해결하고 싶다면, 다음과 같이 unique한 key를 제공해주면 된다. 그러면 잘 작동하는 것을 볼 수 있다.
+따라서 업데이트에 소모되는 자원을 아낄 수 있는 것이다.
+
+이제 `index`를 `key`로 사용했을 때 왜 문제가 생기는지 알 수 있다. 리액트는 개발자를 전적으로 믿고, `key`가 변하지않으면 상태가 변하지 않는다고 판단한다. 이는 성능 최적화를 위한 조치이지만, 각 요소의 상태가 변할 경우에는 의도한 결과가 나오지 않을 수 있다. 이번 문제의 코드가 딱 그렇다. 리스트의 가장 앞에 새로운 원소가 추가되었지만 상태는 변하지 않아 알파벳 `E`가 보이지 않는다. 만약 이 문제를 해결하고 싶다면, 다음과 같이 unique한 key를 제공해주면 된다. 그러면 잘 작동하는 것을 볼 수 있다.
+
+```jsx
+function Text({ text }) {
+  const [value, setValue] = useState(text);
+
+  return <div>{value}</div>;
+}
+
+function Counter() {
+  const [list, setList] = useState([
+    { id: 1, text: "A" },
+    { id: 2, text: "B" },
+    { id: 3, text: "C" },
+    { id: 4, text: "D" },
+  ]);
+  const handleListInsertClick = () => {
+    setList((prevList) => [{ id: 5, text: "E" }].concat(prevList));
+  };
+
+  return (
+    <div>
+      <div>
+        {list.map((item, index) => (
+          <Text key={item.id} text={item.text} />
+        ))}
+      </div>
+      <div>
+        <button onClick={handleListInsertClick}>insert E</button>
+      </div>
+    </div>
+  );
+}
+```
+
+<Counter2 />
 
 ---
 
 ### 참고자료
 
--
+- `ko` https://yozm.wishket.com/magazine/detail/2634/
