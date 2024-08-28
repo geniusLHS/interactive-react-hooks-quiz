@@ -54,6 +54,10 @@ pre {
   @apply text-zinc-200;
 }
 
+.prose {
+  word-break: break-word;
+}
+
 /* code block */
 
 /* pretty-code (shiki) recommend */
