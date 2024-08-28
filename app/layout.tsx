@@ -9,6 +9,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 export const metadata: Metadata = {
   title: "Interactive React Hooks Quiz",
   description: "퀴즈를 풀며 배우는 리액트 훅의 필수 개념",
+  icons: "/logo.svg",
 };
 
 export default function RootLayout({
