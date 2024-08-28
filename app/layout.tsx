@@ -4,6 +4,7 @@ import Link from "next/link";
 import NavLeft from "@/components/NavLeft";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import NavTop from "@/components/NavTop";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: "Interactive React Hooks Quiz",
@@ -33,6 +34,7 @@ export default function RootLayout({
           </div>
         </ThemeProvider>
       </body>
+      <GoogleAnalytics gaId="G-36GT3655W9" />
     </html>
   );
 }
