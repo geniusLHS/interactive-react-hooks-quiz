@@ -18,7 +18,12 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning>
-      <head></head>
+      <head>
+        <meta
+          name="google-site-verification"
+          content="esf9ytGOvWiFwjel19LqLBiRCOz5e_Wn1gv8JEFQJPg"
+        />
+      </head>
       <body className="md:overflow-y-scroll">
         <ThemeProvider attribute="class">
           <NavTop />
