@@ -7,9 +7,19 @@ import NavTop from "@/components/NavTop";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
-  title: "Interactive React Hooks Quiz",
-  description: "퀴즈를 풀며 배우는 리액트 훅의 필수 개념",
+  title: "IRHQ",
+  description: "Interactive React Hooks Quiz",
   icons: "/logo.svg",
+  openGraph: {
+    title: "IRHQ",
+    description: "Interactive React Hooks Quiz",
+    images: [
+      "https://github.com/geniusLHS/interactive-react-hooks-quiz/blob/main/public/image/og.png?raw=true",
+    ],
+    url: "https://irhq.geniuslhs.com/",
+    type: "website",
+    siteName: "IRHQ",
+  },
 };
 
 export default function RootLayout({
