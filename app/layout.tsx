@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "IRHQ",
     description: "Interactive React Hooks Quiz",
     images: [
-      "https://github.com/geniusLHS/interactive-react-hooks-quiz/blob/main/public/image/og.png?raw=true",
+      "https://github.com/geniusLHS/interactive-react-hooks-quiz/blob/main/public/og.png?raw=true",
     ],
     url: "https://irhq.geniuslhs.com/",
     type: "website",
