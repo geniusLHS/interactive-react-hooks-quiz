@@ -12,7 +12,7 @@ import Counter from "@/components/posts/4/Counter";
 
 `useState` 훅 구현의 핵심은 렌더링 사이에서 상태값이 초기화되지 않아야 한다는 것이다. 만약 `useState`를 아래와 같이 구현한다면, 새로운 렌더링이 진행되어 `useState`를 호출할 때마다 값이 초기화될 것이다.
 
-```js showLineNumbers title="wrong.js"
+```js showLineNumbers
 function useState(initialState) {
   let _state = initialState;
 
@@ -46,7 +46,7 @@ counter.increase();
 counter.getValue(); // 2
 ```
 
-클로저는 선언될 당시의 주변 환경을 기억했다가 접근할 수 있는 함수이다. 클로저 안의 변수는 마치 "죽지 않는 변수"와 같다. 함수 `Counter()`의 실행이 끝나더라도 변수 `counter`는 사라지지 않는다. 따라서 이후에 `increase()`, `getValue()` 함수를 호출했을 때도 예상대로 올바르게 동작할 수 있는 것이다.
+클로저는 선언될 당시의 주변 환경을 기억했다가 이후에도 접근할 수 있는 함수이다. 클로저 안의 변수는 마치 "죽지 않는 변수"와 같다. 함수 `Counter()`의 실행이 끝나더라도 변수 `counter`는 사라지지 않는다. 따라서 이후에 `increase()`, `getValue()` 함수를 호출했을 때도 예상대로 올바르게 동작할 수 있는 것이다.
 
 클로저를 활용하여 `useState`의 코드를 간단하게 작성해보면 아래와 같다.
 
@@ -177,7 +177,7 @@ function App() {
 
 첫 번째 렌더링에서는 `_states`의 0번째 칸에 `true`가 들어간다. 또한 `ageFirst`가 `true`이므로, `_states`의 1번째 칸에 `20`, 2번째 칸에 `John`이 들어간다. 또한 변수 `age`와 `name`에는 `useState`에서 반환된 값인 `20`, `John`이 각각 들어간다.
 
-반면 `boyFirst`가 `false`로 바뀌고 난 뒤에는 이야기가 달라진다. `ageFirst`가 `_states`의 0번째 칸에서 상태값을 받는 것은 문제가 없지만, 이번에는 `name`에 `_state[1]`의 값인 `20`이 들어가고, `age`에 `_state[2]`의 값인 `John`이 들어간다. 여기서 `useState`의 인수는 아무런 영향도 끼치지 않는다.
+반면 `boyFirst`가 `false`로 바뀌고 난 뒤에는 이야기가 달라진다. `ageFirst`가 `_states`의 0번째 칸에서 상태값을 받는 것은 문제가 없지만, 이번에는 `name`에 `_state[1]`의 값인 `20`이 들어가고, `age`에 `_state[2]`의 값인 `John`이 들어간다. 여기서 `useState`의 인자는 아무런 영향도 끼치지 않는다.
 
 > 훅의 규칙: 반복문, 조건문, 또는 중첩된 함수 안에서 훅을 호출해서는 안된다.
 

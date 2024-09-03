@@ -8,7 +8,7 @@ import Counter from "@/components/posts/5/Counter";
 
 ---
 
-이 코드를 작성한 개발자는 오직 `user`의 이름이 변할 때만 `hello ${user.name}`을 출력하라는 의미로 `useEffect`의 의존성 배열에 `user`를 추가했을 것이다. 그러나 실제로는 `user`가 변하지 않았는데도 렌더링마다 계속 `hello ${user.name}`가 출력되었다.
+이 코드를 작성한 개발자는 오직 `user`의 이름이 변할 때만 `hello ${user.name}`을 출력하라는 의미로 `useEffect`의 의존성 배열에 `user`를 추가했을 것이다. 그러나 실제로는 `user`를 재선언하지 않았는데도 렌더링마다 계속 `hello ${user.name}`이 출력되었다.
 
 이는 `useEffect`의 의존성 배열은 `useState`의 경우와 비슷하게 `Object.is()` 함수를 사용해 동일성을 판단하기 때문이다. 아래의 두 코드를 보면 차이를 확연하게 할 수 있다.
 
